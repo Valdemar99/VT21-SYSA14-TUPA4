@@ -13,7 +13,7 @@ namespace WindowsClient
 {
     public partial class Form1 : Form
     {
-        private ServiceReference4.WebService1Soap webService;
+        private ServiceReference4.WebService1SoapClient webService;
 
         public Form1()
         {
