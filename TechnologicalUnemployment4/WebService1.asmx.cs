@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Services;
 using System.Web.Services.Protocols;
@@ -36,11 +38,25 @@ namespace TechnologicalUnemployment4
             {
                 return dal.GetBuildings();
               
-            } catch (SqlException exe)
+            }
+            catch (WebException exe)
             {
-
-             throw new SoapException("Building does not exist!", SoapException.ClientFaultCode, exe);
-            
+                throw new SoapException("Please check your connection and try again.", SoapException.ClientFaultCode, exe);
+            }
+            catch (SqlException exe)
+            {
+                if (exe.ErrorCode == 0)
+                {   //Connection issues
+                    throw new SoapException("Database connection error, please contact support.", SoapException.ClientFaultCode, exe);
+                }
+                else
+                {
+                    throw new SoapException("Unknown error, please contact support.", SoapException.ClientFaultCode, exe);
+                }
+            }
+            catch (Win32Exception winExe)
+            {
+                throw new SoapException("Database connection error, please contact support.", SoapException.ClientFaultCode, winExe);
             }
         }
 
@@ -53,11 +69,20 @@ namespace TechnologicalUnemployment4
                 listOfOffices = dal.GetOffices();
 
             }
+            catch (WebException exe)
+            {
+                throw new SoapException("Please check your connection and try again.", SoapException.ClientFaultCode, exe);
+            }
             catch (SqlException exe)
             {
-
-                throw new SoapException("Office does not exist!", SoapException.ClientFaultCode, exe);
-
+                if(exe.ErrorCode == 0)
+                {	//Connection issues
+                throw new SoapException("Database connection error, please contact support.", SoapException.ClientFaultCode, exe);
+                }
+                else
+                {
+                    throw new SoapException("Unknown error, please contact support.", SoapException.ClientFaultCode, exe);
+                }
             }
 
             return listOfOffices;

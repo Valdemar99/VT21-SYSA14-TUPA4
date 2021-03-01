@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Services.Protocols;
@@ -45,9 +46,12 @@ namespace WindowsClient
                     Office[] offices = webService.ShowOffices();
                     dataGridOffices.DataSource = offices;
                 }
-            } catch (Exception ex)
+            } catch (SoapException ex)
             {
-                labelFeedback.Text = "Error";
+                labelFeedback.Text = ex.Message;
+            } catch (EndpointNotFoundException ex)
+            {
+                labelFeedback.Text = "Please check your connection and try again.";
             }
         }
     }
