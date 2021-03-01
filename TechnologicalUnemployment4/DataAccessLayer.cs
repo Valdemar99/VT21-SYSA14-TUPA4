@@ -10,7 +10,7 @@ namespace TechnologicalUnemployment4
 
     {
       
-        private string connectionString = "Server=localhost;Database=Smart Office 2.0;User Id=user2.0;Password =losen";
+        private string connectionString = "Server=localhost;Database=Smart Office 2.0;User Id=user2.0;Password=losen";
 
         public List<Building> GetBuildings()
         {
