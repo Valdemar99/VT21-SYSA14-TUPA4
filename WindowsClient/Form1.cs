@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Services.Protocols;
 using System.Windows.Forms;
 using WindowsClient.ServiceReference4;
 
@@ -31,16 +32,22 @@ namespace WindowsClient
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            if(radioButtonBuildings.Checked)
+            try
             {
-                Building[] buildings = webService.ShowBuildings();
-                dataGridOffices.DataSource = buildings;
-            }
+                if (radioButtonBuildings.Checked)
+                {
+                    Building[] buildings = webService.ShowBuildings();
+                    dataGridOffices.DataSource = buildings;
+                }
 
-            else if (radioButtonOffices.Checked)
+                else if (radioButtonOffices.Checked)
+                {
+                    Office[] offices = webService.ShowOffices();
+                    dataGridOffices.DataSource = offices;
+                }
+            } catch (Exception ex)
             {
-                Office[] offices = webService.ShowOffices();
-                dataGridOffices.DataSource = offices;
+                labelFeedback.Text = "Error";
             }
         }
     }

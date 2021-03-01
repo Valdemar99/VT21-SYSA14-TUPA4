@@ -30,7 +30,7 @@ namespace ConsoleClient
              }
 
 
-            //  Console.WriteLine(webService1.ShowOffices());
+           
                   Console.ReadLine();
                 }
 

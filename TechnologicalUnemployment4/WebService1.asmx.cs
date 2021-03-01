@@ -47,9 +47,10 @@ namespace TechnologicalUnemployment4
         [WebMethod]
         public List<Office> ShowOffices()
         {
+            List<Office> listOfOffices = new List<Office>();
             try
             {
-                return dal.GetOffices();
+                listOfOffices = dal.GetOffices();
 
             }
             catch (SqlException exe)
@@ -58,6 +59,8 @@ namespace TechnologicalUnemployment4
                 throw new SoapException("Office does not exist!", SoapException.ClientFaultCode, exe);
 
             }
+
+            return listOfOffices;
         }
 
 
