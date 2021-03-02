@@ -45,8 +45,8 @@ namespace TechnologicalUnemployment4
             }
             catch (SqlException exe)
             {
-                if (exe.ErrorCode == 0)
-                {   //Connection issues
+                if (exe.ErrorCode == 0) //Error code from SQL is 0 in case of connection issues.
+                {
                     throw new SoapException("Database connection error, please contact support.", SoapException.ClientFaultCode, exe);
                 }
                 else
@@ -75,8 +75,8 @@ namespace TechnologicalUnemployment4
             }
             catch (SqlException exe)
             {
-                if(exe.ErrorCode == 0)
-                {	//Connection issues
+                if(exe.ErrorCode == 0) //Error code from SQL is 0 in case of connection issues.
+                {
                 throw new SoapException("Database connection error, please contact support.", SoapException.ClientFaultCode, exe);
                 }
                 else
